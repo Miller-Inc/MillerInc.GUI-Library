@@ -5,6 +5,8 @@
 #ifndef CROSSPLATFORM_H
 #define CROSSPLATFORM_H
 
+// #define DEBUG
+
 #if defined _WIN32 || defined _WIN64
     #define WINDOWS
 #elif defined __APPLE__

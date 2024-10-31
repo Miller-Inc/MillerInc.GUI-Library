@@ -33,15 +33,15 @@ int WINAPI WindowsWindow::wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = reinterpret_cast<LPCSTR>(className.c_str());
+    wc.lpszClassName = LPCSTR(className.c_str());
 
     RegisterClass(&wc);
 
     // Create the window
     HWND hwnd = CreateWindowEx(
         0,                              // Optional window styles.
-        reinterpret_cast<LPCSTR>(className.c_str()),              // Window class
-        reinterpret_cast<LPCSTR>(className.c_str()),              // Window text
+        LPCSTR(className.c_str()),              // Window class
+        title->c_str(),                 // Window text
         WS_OVERLAPPEDWINDOW,            // Window style
 
         // Size and position

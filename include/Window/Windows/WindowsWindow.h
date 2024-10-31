@@ -19,9 +19,13 @@ public: // Public methods
 
     ~WindowsWindow(); // Destructor
 
+protected:
+
     static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
     int wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) const;
+
+public:
 
     void show() override;
 

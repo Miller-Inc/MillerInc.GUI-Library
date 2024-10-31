@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.29)
+﻿cmake_minimum_required(VERSION 3.22)
 project(MillerInc_GUI_Library)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -10,4 +10,7 @@ add_library(MillerInc_GUI_Library STATIC source/library.cpp
         source/Window/Window.cpp
         include/CrossPlatform.h
         include/Window/Windows/WindowsWindow.h
-        source/Window/Windows/WindowsWindow.cpp)
+        source/Window/Windows/WindowsWindow.cpp
+        source/Window/Linux/LinuxWindow.cpp
+        include/Window/Linux/LinuxWindow.h
+)
