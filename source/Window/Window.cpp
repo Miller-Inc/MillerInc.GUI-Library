@@ -15,10 +15,7 @@ Window::Window(const int width, const int height, int x, int y, const std::strin
     this->title = title;
 }
 
-Window::~Window()
-{
-    delete title;
-}
+Window::~Window() = default;
 
 void Window::setTitle(const std::string* title)
 {

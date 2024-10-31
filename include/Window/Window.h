@@ -10,7 +10,7 @@
 
 class Window
 {
-private:
+protected:
     int width, height;
     int x, y;
 
@@ -32,9 +32,7 @@ public:
     [[nodiscard]] int getX() const;
     [[nodiscard]] int getY() const;
 
-    [[nodiscard]] virtual void show();
-
-
+    virtual void show();
 };
 
 

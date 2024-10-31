@@ -7,9 +7,11 @@
 
 // Full Include List
 #include "library.h"
+#include "CrossPlatform.h"
 
 #include "Window/Window.h"
-
-#include "CrossPlatform.h"
+#ifdef WINDOWS
+#include "Window/Windows/WindowsWindow.h"
+#endif
 
 #endif //GUI_H
