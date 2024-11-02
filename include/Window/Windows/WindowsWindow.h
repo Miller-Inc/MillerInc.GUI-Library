@@ -5,14 +5,12 @@
 #ifndef WINDOWSWINDOW_H
 #define WINDOWSWINDOW_H
 
-#include "../../../include/Window/Window.h"
+#include "../../../include/Window/CustomWindow.h"
 #include <iostream>
 
 #if defined WINDOWS
 
-class Window;
-
-class WindowsWindow : public Window
+class WindowsWindow : public CustomWindow
 {
 public: // Public methods
     WindowsWindow(int width, int height, int x, int y, const std::string* title);

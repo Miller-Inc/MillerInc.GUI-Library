@@ -9,9 +9,15 @@
 #include "library.h"
 #include "CrossPlatform.h"
 
-#include "Window/Window.h"
+#include "Window/CustomWindow.h"
 #ifdef WINDOWS
 #include "Window/Windows/WindowsWindow.h"
+#elif defined MACOS
+#throw "MacOS is not supported yet."
+#elif defined LINUX
+#include "Window/Linux/LinuxWindow.h"
 #endif
+
+#include "Window/Components.h"
 
 #endif //GUI_H

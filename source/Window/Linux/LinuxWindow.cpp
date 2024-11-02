@@ -2,17 +2,22 @@
 // Created by James Miller on 10/31/2024.
 //
 
-#ifdef LINUX || DEBUG // Debug to check syntax when on windows
-
 #include "../../../include/Window/Linux/LinuxWindow.h"
+
+#if defined LINUX || defined DEBUG // Debug to check syntax when on windows
+
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <iostream>
 
+#include <thread>
+
 LinuxWindow::LinuxWindow(int width, int height, int x, int y, const std::string* title)
-    : Window(width, height, x, y, title), display(XOpenDisplay(NULL)), window(width, height, x, y, title)
+    : CustomWindow(width, height, x, y, title), display(XOpenDisplay(nullptr)),
+      windowColor(WhitePixel(display, DefaultScreen(display))),
+      buttonColor(WhitePixel(display, DefaultScreen(display)))
 {
-    if (display == NULL)
+    if (display == nullptr)
     {
         std::cerr << "Cannot open display\n";
         exit(1);
@@ -20,7 +25,7 @@ LinuxWindow::LinuxWindow(int width, int height, int x, int y, const std::string*
 
     int screen = DefaultScreen(display);
     window = XCreateSimpleWindow(display, RootWindow(display, screen), x, y, width, height, 1,
-                                 BlackPixel(display, screen), WhitePixel(display, screen));
+                                 BlackPixel(display, screen), windowColor);
 
     XStoreName(display, window, title->c_str());
 
@@ -36,23 +41,67 @@ LinuxWindow::~LinuxWindow()
     XCloseDisplay(display);
 }
 
+void LinuxWindow::update() {
+    XClearWindow(display, window);
+    for (const auto& item : WindowItems) {
+        item->draw();
+    }
+    XFlush(display);
+    std::cout << "Window updated\n";
+}
+
 void LinuxWindow::show()
 {
+    isRunning = true; // Set the running flag to true
     XMapWindow(display, window);
 
     XEvent event;
-    while (true) {
+    while (isRunning) {
         XNextEvent(display, &event);
 
         if (event.type == Expose) {
-            // Handle expose event
+            // Redraw the window content
+            update();
         } else if (event.type == KeyPress) {
             // Handle key press event
+        } else if (event.type == ButtonPress) {
+            // Handle button press event
+            std::cout << "Button pressed at (" << event.xbutton.x << ", " << event.xbutton.y << ")\n";
         } else if (event.type == ClientMessage) {
             if (event.xclient.data.l[0] == wmDeleteMessage) {
+                isRunning = false; // Set the running flag to false
                 break;
             }
         }
+    }
+}
+
+
+
+void LinuxWindow::setWindowColor(unsigned long color)
+{
+    windowColor = color;
+    XSetWindowBackground(display, window, windowColor);
+    XClearWindow(display, window);
+}
+
+void LinuxWindow::setButtonColor(unsigned long color)
+{
+    buttonColor = color;
+}
+
+void LinuxWindow::addButton(Button* button) {
+    if (auto* linuxButton = dynamic_cast<LinuxButton*>(button)) {
+        WindowItems.push_back(linuxButton);
+        linuxButton->draw();
+    }
+}
+
+void LinuxWindow::addLabel(Label* label)
+{
+    if (auto* linuxLabel = dynamic_cast<LinuxLabel*>(label)) {
+        WindowItems.push_back(linuxLabel);
+        linuxLabel->draw();
     }
 }
 

@@ -1,8 +1,11 @@
 ﻿#include "../../../include/Window/Windows/WindowsWindow.h"
+
+#if defined WINDOWS || defined DEBUG
+
 #include <windows.h>
 #include <string>
 
-WindowsWindow::WindowsWindow(int width, int height, int x, int y, const std::string* title) : Window(width, height, x, y, title)
+WindowsWindow::WindowsWindow(int width, int height, int x, int y, const std::string* title) : CustomWindow(width, height, x, y, title)
 {
     // Constructor
 }
@@ -76,3 +79,5 @@ void WindowsWindow::show()
     // Show the window
     wWinMain(GetModuleHandle(NULL), NULL, reinterpret_cast<PWSTR>(GetCommandLine()), SW_SHOWNORMAL);
 }
+
+#endif //WINDOWS

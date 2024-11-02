@@ -5,26 +5,32 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 #include <string>
+#include <vector>
 
+#include "Components.h"
 #include "../../include/CrossPlatform.h"
 
-class Window
+class CustomWindow
 {
 protected:
-    int width, height;
-    int x, y;
+    int width = 800, height = 600;
+    int x = 0, y = 0;
 
-    const std::string* title;
+    const std::string* title = new std::string("new window");
 
 public:
-    Window(int width, int height, int x, int y, const std::string* title);
-    ~Window();
+    CustomWindow(int width, int height, int x, int y, const std::string* title);
+    virtual ~CustomWindow();
 
     virtual void setTitle(const std::string* title);
     virtual void setWidth(int width);
     virtual void setHeight(int height);
     virtual void setX(int x);
     virtual void setY(int y);
+    virtual bool running()
+    {
+        return isRunning;
+    }
 
     [[nodiscard]] const std::string* getTitle() const;
     [[nodiscard]] int getWidth() const;
@@ -33,6 +39,18 @@ public:
     [[nodiscard]] int getY() const;
 
     virtual void show();
+    virtual void update();
+
+    virtual void addItem(Item* item);
+    virtual void addButton(Button* button);
+    virtual void addLabel(Label* label);
+
+protected:
+    volatile bool isRunning = false;
+    std::vector<Item*> WindowItems;
+
+
+
 };
 
 
