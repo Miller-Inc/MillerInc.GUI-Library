@@ -7,6 +7,7 @@
 Label::Label(int id, int x, int y, int width, int height, const std::string& label)
     : Item(id, x, y, width, height, label)
 {
+    text = label;
 }
 
 void Label::draw() const

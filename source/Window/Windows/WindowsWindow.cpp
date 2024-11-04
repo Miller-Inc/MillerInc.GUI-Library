@@ -80,4 +80,15 @@ void WindowsWindow::show()
     wWinMain(GetModuleHandle(NULL), NULL, reinterpret_cast<PWSTR>(GetCommandLine()), SW_SHOWNORMAL);
 }
 
+void WindowsWindow::update()
+{
+    // Update the window
+    MSG msg = { };
+    while (GetMessage(&msg, nullptr, 0, 0))
+    {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
+}
+
 #endif //WINDOWS

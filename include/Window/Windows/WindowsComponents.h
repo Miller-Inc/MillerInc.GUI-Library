@@ -12,6 +12,10 @@
 #include <string>
 #include <windows.h>
 
+#include "Components/WindowsButton.h"
+#include "Components/WindowsLabel.h"
+
+
 #endif //WINDOWS
 
 #endif //WINDOWSCOMPONENTS_H

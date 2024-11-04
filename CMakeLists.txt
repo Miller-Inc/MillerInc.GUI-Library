@@ -46,6 +46,10 @@ add_library(MillerInc_GUI_Library STATIC source/library.cpp
         include/Window/Linux/LinuxComponents.h
         include/Window/Windows/WindowsComponents.h
         include/Window/Windows/WindowsComponents.h
+        include/Window/Windows/Components/WindowsButton.h
+        source/Window/Windows/WindowsButton.cpp
+        include/Window/Windows/Components/WindowsLabel.h
+        source/Window/Windows/WindowsLabel.cpp
 )
 
 if (WIN32)

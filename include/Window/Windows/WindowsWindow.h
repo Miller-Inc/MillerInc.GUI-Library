@@ -15,7 +15,11 @@ class WindowsWindow : public CustomWindow
 public: // Public methods
     WindowsWindow(int width, int height, int x, int y, const std::string* title);
 
-    ~WindowsWindow(); // Destructor
+    ~WindowsWindow() override; // Destructor
+
+    void update() override;
+
+
 
 protected:
 

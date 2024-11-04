@@ -6,6 +6,7 @@
 #define LABEL_H
 
 #include "Item.h"
+#include "../../CrossPlatform.h"
 
 class Label : public Item
 {
@@ -14,6 +15,8 @@ public:
     ~Label() override = default;
 
     void draw() const override;
+
+    std::string text; // Text to display
 };
 
 
